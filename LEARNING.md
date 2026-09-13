@@ -37,6 +37,7 @@ The live setup deposits 0.02 ETH as collateral, mints about 12.43 MyUSD, and see
 - All six contracts are verified on Sepolia Etherscan.
 - On-chain calls confirmed 0.02 ETH collateral, active debt shares, and 0.005 ETH DEX liquidity.
 - The Vercel dashboard returned HTTP 200 and loaded in Chrome against Sepolia.
+- SpeedRunEthereum accepted the submission after its autograder passed 45/45 tests and awarded 10 XP.
 
 ## Reusable lessons
 
