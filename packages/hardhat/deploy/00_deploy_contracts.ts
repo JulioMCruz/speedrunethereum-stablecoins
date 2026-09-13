@@ -147,6 +147,35 @@ export default deployScript(
           account: deployer,
         });
       }
+    } else {
+      // Seed live testnets with a small, safely collateralized position and
+      // matching DEX liquidity so the public dashboard has an active market.
+      const ethCollateralAmount = parseEther("0.02");
+      const ethDEXAmount = parseEther("0.005");
+      const myUSDAmount = ethPrice / 200n;
+
+      await env.execute(engine, {
+        functionName: "addCollateral",
+        args: [],
+        value: ethCollateralAmount,
+        account: deployer,
+      });
+      await env.execute(engine, {
+        functionName: "mintMyUSD",
+        args: [myUSDAmount],
+        account: deployer,
+      });
+      await env.execute(stablecoin, {
+        functionName: "approve",
+        args: [DEX.address, myUSDAmount],
+        account: deployer,
+      });
+      await env.execute(DEX, {
+        functionName: "init",
+        args: [myUSDAmount],
+        value: ethDEXAmount,
+        account: deployer,
+      });
     }
   },
   { tags: ["MyUSDEngine"] },
